@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "target": "es2022",
+    "module": "commonjs",
+    "strict": true,
+    "allowJs": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "@server/*": ["src/*", "dist/*"],
+      "@shared/*": ["node_modules/@ubigu/shared/src/*", "node_modules/@ubigu/shared/dist/*"]
+    }
+  },
+  "include": ["types", "src"],
+  "ts-node": {
+    "files": true
+  }
+}
