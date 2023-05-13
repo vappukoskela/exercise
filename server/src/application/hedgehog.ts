@@ -22,6 +22,18 @@ async function checkDB(): Promise<any> {
   }
 }
 
-export function getAllHedgehogs() {
-  return [1, 2, 3];
+export async function getAllHedgehogs() {
+  try {
+    const hedgehogs = await getPool().many(
+      sql.type(z.number())`SELECT id FROM hedgehogs`
+    );
+
+    return hedgehogs;
+  } catch (error) {
+    logger.error(error);
+  }
 }
+
+// TODO: Yksittäisen siilin hakeminen tietokannasta ID:llä
+
+// TODO: Yksittäisen siilin lisäämisen sovelluslogiikka

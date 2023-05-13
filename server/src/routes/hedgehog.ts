@@ -14,5 +14,11 @@ export function hedgehogRouter(
     });
   });
 
+  // TODO: Yksittäisen siilin hakeminen tietokannasta ID:llä
+  // fastify.get(...);
+
+  // TODO: Yksittäisen siilin lisäämisen sovelluslogiikka
+  // fastify.post(...)
+
   done();
 }

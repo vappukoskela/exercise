@@ -12,7 +12,6 @@ export default function HedgeHogList() {
         if (!res.ok) return;
 
         const json = await res.json();
-
         json && setHedgehogs(json.hedgehogs);
       } catch (err) {
         console.error(`Error while fetching hedgehogs: ${err}`);
@@ -41,7 +40,7 @@ export default function HedgeHogList() {
       {hedgehogs.length ? (
         <Box sx={{ overflowY: "scroll", height: "100%" }}>
           {hedgehogs.map((hedgehog: any, index: number) => (
-            <MenuItem key={`hedgehog-index-${index}`}>{hedgehog}</MenuItem>
+            <MenuItem key={`hedgehog-index-${index}`}>{hedgehog.id}</MenuItem>
           ))}
         </Box>
       ) : (
