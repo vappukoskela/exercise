@@ -8,6 +8,10 @@ import { useState } from "react";
 export function App() {
   // Latest coordinates from the Map click event
   const [coordinates, setCoordinates] = useState<number[]>();
+  // ID of the currently selected hedgehog
+  const [selectedHedgehogId, setSelectedHedgehogId] = useState<number | null>(
+    null
+  );
 
   return (
     <Box
@@ -45,7 +49,7 @@ export function App() {
       >
         <HedgeHogList />
         <Box>
-          <HedgehogInfo hedgehogId={5} />
+          <HedgehogInfo hedgehogId={selectedHedgehogId} />
           <HedgehogForm coordinates={coordinates || []} />
         </Box>
         <Paper elevation={3} sx={{ margin: "1em" }}>

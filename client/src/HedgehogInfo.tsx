@@ -1,7 +1,7 @@
 import { Paper, Typography } from "@mui/material";
 
 interface Props {
-  hedgehogId: number;
+  hedgehogId: number | null;
 }
 
 export function HedgehogInfo({ hedgehogId }: Props) {
@@ -25,9 +25,6 @@ export function HedgehogInfo({ hedgehogId }: Props) {
         muuttuessa ko. siilin tiedot haetaan rajapinnalta.
       </Typography>
       <br />
-      <Typography sx={{ fontWeight: "bold" }}>
-        Valitun siilin ID: {hedgehogId}
-      </Typography>
     </Paper>
   );
 }

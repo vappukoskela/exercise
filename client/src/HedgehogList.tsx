@@ -12,7 +12,7 @@ export default function HedgeHogList() {
         if (!res.ok) return;
 
         const json = await res.json();
-        json && setHedgehogs(json.hedgehogs);
+        json?.length && setHedgehogs(json.hedgehogs);
       } catch (err) {
         console.error(`Error while fetching hedgehogs: ${err}`);
       }
@@ -44,8 +44,11 @@ export default function HedgeHogList() {
           ))}
         </Box>
       ) : (
-        <Typography sx={{ fontStyle: "italic", padding: "1em", color: "grey" }}>
-          Ei rekisteröityjä siilejä
+        <Typography sx={{ padding: "1em" }}>
+          TODO: Mikäli tietokannasta löytyy siilejä, ne listautuvat tähän. Luo
+          logiikka, jolla tämän listauksen siiliä klikkaamalla siili tulee
+          valituksti, jonka jälkeen sen tiedot tulee hakea viereiseen
+          komponenttiin.
         </Typography>
       )}
     </Paper>

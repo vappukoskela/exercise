@@ -25,7 +25,8 @@ export function HedgehogForm({ coordinates }: Props) {
         havainnon yhteydessä merkitään havainnon sijainti kartalla. Kartalta
         saadaan koordinaattipiste tälle HedgehogForm:lle klikkaamalla karttaa
         (kts. consolin logit). Tämä koordinaattipiste tulee tallentaa
-        tietokantaan muiden tietojen oheen.{" "}
+        tietokantaan muiden tietojen oheen. PostGIS tarjoaa koordinaateille
+        sopivan tietokantatyypin koordinaattien tallennukseen.
       </Typography>
     </Paper>
   );
