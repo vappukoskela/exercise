@@ -26,7 +26,9 @@ export function HedgehogForm({ coordinates }: Props) {
         saadaan koordinaattipiste tälle HedgehogForm:lle klikkaamalla karttaa
         (kts. consolin logit). Tämä koordinaattipiste tulee tallentaa
         tietokantaan muiden tietojen oheen. PostGIS tarjoaa koordinaateille
-        sopivan tietokantatyypin koordinaattien tallennukseen.
+        sopivan tietokantatyypin koordinaattien tallennukseen. Yllä olevat
+        tiedot tulee tallentaa tietokantaan sopivalla HTTP pyynnöllä siilien
+        tietokantaan.
       </Typography>
     </Paper>
   );
