@@ -1,7 +1,7 @@
-import { MenuItem, Paper, Typography } from "@mui/material";
+import { Box, MenuItem, Paper, Typography } from "@mui/material";
 import { useEffect } from "react";
 
-const hedgeHogs = Array(100).fill(6);
+const hedgeHogs = Array(20).fill(6);
 
 export default function HedgeHogList() {
   // Fetch all hedgehog's during startup
@@ -22,13 +22,26 @@ export default function HedgeHogList() {
   }, []);
 
   return (
-    <Paper
-      elevation={3}
-      sx={{ margin: "1em", padding: "1em", overflowY: "scroll" }}
-    >
-      {hedgeHogs.map((hedgeHog, index) => (
-        <MenuItem key={`hedgehog-index-${index}`}>{hedgeHog}</MenuItem>
-      ))}
+    <Paper elevation={3} sx={{ margin: "1em", overflow: "hidden" }}>
+      <Box
+        sx={{
+          backgroundColor: "#a1e6df",
+          height: "3em",
+          display: "flex",
+          zIndex: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography sx={{ color: "darkslategrey" }}>
+          Rekisteröidyt siilit
+        </Typography>
+      </Box>
+      <Box sx={{ overflowY: "scroll", height: "100%" }}>
+        {hedgeHogs.map((hedgeHog, index) => (
+          <MenuItem key={`hedgehog-index-${index}`}>{hedgeHog}</MenuItem>
+        ))}
+      </Box>
     </Paper>
   );
 }
