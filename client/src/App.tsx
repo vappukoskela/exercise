@@ -3,8 +3,12 @@ import { HedgehogInfo } from "./HedgehogInfo";
 import HedgeHogList from "./HedgehogList";
 import { Map } from "./Map";
 import { Box, Paper, Typography } from "@mui/material";
+import { useState } from "react";
 
 export function App() {
+  // Latest coordinates from the Map click event
+  const [coordinates, setCoordinates] = useState<number[]>();
+
   return (
     <Box
       sx={{
@@ -42,10 +46,10 @@ export function App() {
         <HedgeHogList />
         <Box>
           <HedgehogInfo hedgehogId={4} />
-          <HedgehogForm />
+          <HedgehogForm coordinates={coordinates || []} />
         </Box>
         <Paper elevation={3} sx={{ margin: "1em" }}>
-          <Map />
+          <Map onMapClick={(coordinates) => setCoordinates(coordinates)} />
         </Paper>
       </Box>
       <Box

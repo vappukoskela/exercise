@@ -6,9 +6,10 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 
 interface Props {
   children?: ReactNode;
+  onMapClick: (coordinates: number[]) => void;
 }
 
-export function Map({ children }: Props) {
+export function Map({ children, onMapClick }: Props) {
   const mapRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -45,6 +46,10 @@ export function Map({ children }: Props) {
   /** olMap -object's initialization on startup  */
   useEffect(() => {
     olMap.setTarget(mapRef.current as HTMLElement);
+
+    olMap.on("click", (event) => {
+      onMapClick(event.coordinate);
+    });
   }, [olMap]);
 
   return (

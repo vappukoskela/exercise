@@ -1,6 +1,12 @@
 import { Paper, Typography } from "@mui/material";
 
-export function HedgehogForm() {
+interface Props {
+  coordinates: number[];
+}
+
+export function HedgehogForm({ coordinates }: Props) {
+  console.log(coordinates);
+
   return (
     <Paper
       elevation={3}
@@ -17,9 +23,9 @@ export function HedgehogForm() {
       <Typography>
         Siililtä kysyttävät tiedot: nimi, ikä, sukupuoli. Lisäksi siilin
         havainnon yhteydessä merkitään havainnon sijainti kartalla. Kartalta
-        saadaan koordinaattipiste tälle HedgehogForm:lle klikkaamalla karttaa.
-        Tämä koordinaattipiste tulee tallentaa tietokantaan muiden tietojen
-        oheen.{" "}
+        saadaan koordinaattipiste tälle HedgehogForm:lle klikkaamalla karttaa
+        (kts. consolin logit). Tämä koordinaattipiste tulee tallentaa
+        tietokantaan muiden tietojen oheen.{" "}
       </Typography>
     </Paper>
   );
