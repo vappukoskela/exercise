@@ -17,7 +17,7 @@ export function HedgehogInfo({ hedgehogId }: Props) {
         TODO: Esitä tässä komponentissa haluamallasi tavalla yksittäisen, tällä
         hetkellä valittuna olevan, siilin tiedot. Siili valitaan
         vasemmanpuoleisesta listauksesta. Kartalla esitetään valitun siilin
-        sijainti (vapaavalintaisen) karttamerkin avulla.
+        sijainti karttamerkin avulla.
       </Typography>
       <br />
       <Typography>

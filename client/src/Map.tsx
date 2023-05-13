@@ -1,15 +1,23 @@
 import { GlobalStyles } from "@mui/material";
-import { View, Map as OlMap } from "ol";
+import { View, Map as OlMap, Feature } from "ol";
+import { GeoJSON } from "ol/format";
 import TileLayer from "ol/layer/Tile";
+import VectorLayer from "ol/layer/Vector";
 import OSM from "ol/source/OSM.js";
+import VectorSource from "ol/source/Vector";
+import { Circle } from "ol/style";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
+import Style from "ol/style/Style";
 import { ReactNode, useEffect, useRef, useState } from "react";
 
 interface Props {
   children?: ReactNode;
+  geometries?: any[];
   onMapClick: (coordinates: number[]) => void;
 }
 
-export function Map({ children, onMapClick }: Props) {
+export function Map({ children, onMapClick, geometries }: Props) {
   const mapRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -39,6 +47,16 @@ export function Map({ children, onMapClick }: Props) {
         new TileLayer({
           source: new OSM(),
         }),
+        new VectorLayer({
+          source: new VectorSource(),
+          style: new Style({
+            image: new Circle({
+              radius: 7,
+              fill: new Fill({ color: "#00B2A0" }),
+              stroke: new Stroke({ color: "darkblue", width: 3 }),
+            }),
+          }),
+        }),
       ],
     });
   });
@@ -51,6 +69,21 @@ export function Map({ children, onMapClick }: Props) {
       onMapClick(event.coordinate);
     });
   }, [olMap]);
+
+  /** Listen for changes in the 'geometries' property */
+  useEffect(() => {
+    if (!geometries || !geometries.length) return;
+    const layers = olMap.getLayers().getArray();
+
+    const source = (layers[1] as VectorLayer<VectorSource>).getSource();
+    const features = geometries.map(
+      (geometry) =>
+        new Feature({
+          geometry: new GeoJSON().readGeometry(geometry.geometry),
+        })
+    );
+    source?.addFeatures(features);
+  }, [geometries]);
 
   return (
     <div style={{ width: "100%", height: "100%" }}>

@@ -44,6 +44,8 @@ docker compose logs -f <kontin nimi>
 
 Tehtävänantona on täydentää jo olemassa olevaa siili-tietomallia kattamaan yksilöivän id:n lisäksi siilin nimi, ikä, sukupuoli sekä sijainti, jossa siili havaittiin.
 
-Kun olet laajentanut siilien tietomallia vaadituilta osin, muuta siilien listausta siten, että listalla esitetään siilin nimi, ja nimeä klikkaamalla ko. siilin ID tulee valituksi. Tämä ID tulee välittää täältä komponentista komponentille `<HedgehogInfo>`, jossa valitun siilin tiedot esitetään.
+Kun olet laajentanut siilien tietomallia vaadituilta osin, muuta siilien listausta siten, että listalla esitetään siilin nimi, ja nimeä klikkaamalla ko. siilin ID tulee valituksi. Tämä ID tulee välittää täältä komponentista komponentille `<HedgehogInfo>`, jossa valitun siilin tiedot esitetään. Mikäli yksittäisen siilin tiedot on valittuna, näytetään ko. siilin sijainti kartalla.
 
-Toteuta komponetti `<HedgehogForm>`, jossa uusia siilihavaintoja voidaan rekisteröidä. Tätä varten
+Toteuta komponetti `<HedgehogForm>`, jossa uusia siilihavaintoja voidaan rekisteröidä. Siilin koordinaatit saadaan välittyvät tälle komponentille karttaa klikatessa.
+
+EXTRA: Mikäli jää aikaa, voi sovellusta laajentaa siten, että kartalla hiirellä hoveroidessa siilin koordinaattien päällä, näytetään popup -laatikossa ko. siilin tiedot.
