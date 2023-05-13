@@ -4,20 +4,22 @@
 
 The application consists of three main component: server (Node.js), database (PostgreSQL / PostGIS ) and client (React, OpenLayers)
 
-## Running the application
+## Sovelluksen käynnistäminen
 
-First the project has to build with docker compose (run from cli):
+`server` -kansion juuresta löytyy ympäristömuuttujille varattu tiedosto `.template.env`. Tästä tiedostosta tulee luoda koptio samaiseen kansioon nimellä `.env`, jotta sovellus saa tarvittavat ympäristömuuttujat käyttöönsä.
+
+Buildaa sovellus dockerilla (komentoriviltä ajettaessa)
 
 ```
 docker compose build
 ```
 
-Start the application:
+Käynnistä sovellus:
 
 ```
 docker compose up -d
 ```
 
-## Aim of the exercise
+## Harjoitustyön tavoite
 
-The aim for this exercise is to...
+Tehtävänantona on täydentää jo olemassa olevaa siili-tietomallia kattamaan yksilöivän id:n lisäksi siilin nimi, ikä sekä sukupuoli.
