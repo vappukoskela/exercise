@@ -15,7 +15,8 @@ export function HedgehogInfo({ hedgehogId }: Props) {
     >
       <Typography>
         TODO: Esitä tässä komponentissa haluamallasi tavalla yksittäisen siilin
-        tiedot.
+        tiedot. Viereisellä kartalla esitetään valitun siilin sijainti
+        (vapaavalintaisen) karttamerkin avulla.
       </Typography>
       <br />
       <Typography>
