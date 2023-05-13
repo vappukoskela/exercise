@@ -45,7 +45,7 @@ export function App() {
       >
         <HedgeHogList />
         <Box>
-          <HedgehogInfo hedgehogId={4} />
+          <HedgehogInfo hedgehogId={5} />
           <HedgehogForm coordinates={coordinates || []} />
         </Box>
         <Paper elevation={3} sx={{ margin: "1em" }}>
