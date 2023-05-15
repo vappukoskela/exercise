@@ -56,7 +56,7 @@ export function App() {
           <Map
             onMapClick={(coordinates) => setCoordinates(coordinates)}
             // Esimerkki siitä, miten kartalle voidaan välittää siilien koordinaatteja GeoJSON -arrayssä
-            geometries={[
+            features={[
               {
                 type: "Feature",
                 geometry: {

@@ -1,1 +1,1 @@
-CREATE TABLE hedgehogs ("id" serial NOT NULL);
+CREATE TABLE hedgehog ("id" serial NOT NULL);

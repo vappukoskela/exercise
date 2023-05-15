@@ -13,11 +13,11 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 
 interface Props {
   children?: ReactNode;
-  geometries?: any[];
+  features?: GeoJSON.Feature[];
   onMapClick: (coordinates: number[]) => void;
 }
 
-export function Map({ children, onMapClick, geometries }: Props) {
+export function Map({ children, onMapClick, features }: Props) {
   const mapRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -70,20 +70,20 @@ export function Map({ children, onMapClick, geometries }: Props) {
     });
   }, [olMap]);
 
-  /** Listen for changes in the 'geometries' property */
+  /** Listen for changes in the 'features' property */
   useEffect(() => {
-    if (!geometries || !geometries.length) return;
+    if (!features || !features.length) return;
     const layers = olMap.getLayers().getArray();
 
     const source = (layers[1] as VectorLayer<VectorSource>).getSource();
-    const features = geometries.map(
+    const olFeatures = features.map(
       (geometry) =>
         new Feature({
           geometry: new GeoJSON().readGeometry(geometry.geometry),
         })
     );
-    source?.addFeatures(features);
-  }, [geometries]);
+    source?.addFeatures(olFeatures);
+  }, [features]);
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
