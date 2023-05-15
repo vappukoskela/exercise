@@ -1,13 +1,12 @@
 import { getPool } from "@server/db";
 import { logger } from "@server/logging";
-import { Hedgehog } from "@shared/hedgehog";
+import { hedgehogSchema } from "@shared/hedgehog";
 import { sql } from "slonik";
-import { z } from "zod";
 
 export async function getAllHedgehogs() {
   try {
-    const hedgehogs = await getPool().many(
-      sql.type(z.number())`SELECT id FROM hedgehogs`
+    const hedgehogs = await getPool().any(
+      sql.type(hedgehogSchema)`SELECT id FROM hedgehogs`
     );
 
     return hedgehogs;
