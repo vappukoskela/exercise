@@ -7,8 +7,6 @@ services:
     volumes:
       - ./client:/app/client:delegated
       - ./shared:/app/shared:delegated
-      - /app/shared/node_modules
-      - /app/client/node_modules
     ports:
       - '127.0.0.1:8080:8080'
     healthcheck:
@@ -23,7 +21,6 @@ services:
     volumes:
       - ./server:/app/server:delegated
       - ./shared:/app/shared:delegated
-      - /app/server/node_modules
     ports:
       - '127.0.0.1:3003:3003'
     depends_on:
