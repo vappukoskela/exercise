@@ -6,8 +6,6 @@ Sovellus koostuu kolmesta komponentista: serveri/api-rajapinta (Node.js / Fastif
 
 ## Sovelluksen käynnistäminen
 
-`server` -kansion juuresta löytyy ympäristömuuttujille varattu tiedosto `.template.env`. Tästä tiedostosta tulee luoda kopio samaiseen kansioon nimellä `.env`, jotta sovellus saa tarvittavat ympäristömuuttujat käyttöönsä.
-
 Buildaa sovellus dockerilla (komentoriviltä ajettaessa)
 
 ```
@@ -20,7 +18,9 @@ Käynnistä sovellus:
 docker compose up -d
 ```
 
-Näiden jälkeen tulisi olla kullekin sovelluksen komponentille (server, client, db) oma docker-kontti ajossa. Yksittäisen kontin saa käynnistettyä uudelleen komennolla. Esimerkiksi serverin tapauksessa:
+Näiden jälkeen tulisi olla kullekin sovelluksen komponentille (server, client, db) oma docker-kontti ajossa. Käyttöliittymän voi nyt avata osoitteesta [http://localhost:8080](http://localhost:8080).
+
+Yksittäisen kontin saa käynnistettyä uudelleen komennolla. Esimerkiksi serverin tapauksessa:
 
 ```
 docker compose restart server
