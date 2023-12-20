@@ -40,6 +40,21 @@ Konttien logeja voi seurailla ajamalla komennon:
 docker compose logs -f <kontin nimi>
 ```
 
+## Uuden riippuvuuden lisääminen
+
+Jos haluat lisätä uuden riippuvuuden, se pitää viedä myös kontin sisälle buildaamalla kontit uudestaan:
+
+```sh
+# Asennetaan uusi riippuvuus client/server/shared-kansiossa
+npm i <uusi riippuvuus>
+
+# Buildataan kontit uudestaan (muuttumattomat kontit tulevat cachesta)
+docker compose build
+
+# Ajetaan sovellus uudestaan ylös, samalla luoden nimeämättömät (node_modules) voluumit uudestaan
+docker compose up -d -V
+```
+
 ## Harjoitustyön tavoite
 
 Tehtävänantona on täydentää jo olemassa olevaa siili-tietomallia kattamaan yksilöivän id:n lisäksi siilin nimi, ikä, sukupuoli sekä sijainti, jossa siili havaittiin.
