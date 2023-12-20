@@ -48,3 +48,7 @@ Sovelluksen käyttämä siili-tyyppi löytyy `/shared/` -kansion alta. Tätä ty
 Kun olet laajentanut siilien tietomallia vaadituilta osin, muuta siilien listausta siten, että listalla esitetään siilin nimi, ja nimeä klikkaamalla ko. siilin ID tulee valituksi. Tämä ID tulee välittää täältä komponentista komponentille `<HedgehogInfo>`, jossa valitun siilin tiedot esitetään. Mikäli yksittäisen siilin tiedot on valittuna, näytetään ko. siilin sijainti kartalla.
 
 Toteuta komponetti `<HedgehogForm>`, jossa uusia siilihavaintoja voidaan rekisteröidä. Siilin koordinaatit saadaan välittyvät tälle komponentille karttaa klikatessa.
+
+Toteutettavat varsinaiset toiminnallisuudet on tarkoituksella tehty melko suppeiksi, jotta näihin ei menisi liian paljon aikaa. Toiminnallisuuksien lisäksi toteutus tulisi saa julkistettua siten, että se on julkisessa Internetissä saatavilla. Esimerkiksi isoimmat pilvipalveluiden tarjoajat tarjoavat ilmaisia ajoympäristöjä, joihin sovelluksen voi pystyttää. Tällä mittaammme koodipähkinän suorittajien yleistä devops -osaamista.
+
+Lisäksi mikäli kaikki yllä oleva sujuu joutuisasti, haluaisimme nähdä sovelluksen jollekin osalle kirjoitettavan testejä. Testit voivat olla toteutettuna millä tahansa kirjastolla ja ne voivat liittyä mihin tahansa sovelluksen osaan (esim. E2E-testit, backendin yksikkötestit jne.).
