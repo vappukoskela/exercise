@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   client:
     build:
@@ -8,8 +8,9 @@ services:
       - ./client:/app/client:delegated
       - ./shared:/app/shared:delegated
       - /app/client/node_modules
+      - /app/shared/node_modules
     ports:
-      - '127.0.0.1:8080:8080'
+      - "127.0.0.1:8080:8080"
     healthcheck:
       test: curl --fail http://localhost:8080 || exit 1
       interval: 5s
@@ -22,8 +23,10 @@ services:
     volumes:
       - ./server:/app/server:delegated
       - ./shared:/app/shared:delegated
+      - /app/server/node_modules
+      - /app/shared/node_modules
     ports:
-      - '127.0.0.1:3003:3003'
+      - "127.0.0.1:3003:3003"
     depends_on:
       db:
         condition: service_healthy
@@ -42,7 +45,7 @@ services:
     volumes:
       - db-volume:/var/lib/postgresql/data
     ports:
-      - '127.0.0.1:5432:5432'
+      - "127.0.0.1:5432:5432"
     healthcheck:
       test: psql -U db_dev_user -d db_dev -c "SELECT 1"
       interval: 5s
