@@ -44,7 +44,8 @@ export function App() {
           display: "grid",
           gridAutoColumns: "1fr 1.5fr 2fr",
           gridAutoFlow: "column",
-          overflow: "hidden",
+          flexGrow: 1,
+          overflow: "auto",
         }}
       >
         <HedgeHogList />
