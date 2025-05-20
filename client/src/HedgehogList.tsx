@@ -2,10 +2,14 @@ import { Box, MenuItem, Paper, Typography } from "@mui/material";
 import { Hedgehog } from "@shared/hedgehog";
 import { useEffect, useState } from "react";
 
-export default function HedgeHogList() {
+interface Props {
+  selectHedgehog: (id: number | null) => void;
+}
+
+export default function HedgeHogList({ selectHedgehog }: Props) {
   const [hedgehogs, setHedgehogs] = useState<Hedgehog[]>([]);
 
-  // Fetch all hedgehog's during startup
+  // Fetch all hedgehogs during startup
   useEffect(() => {
     const getAllHedgehogs = async () => {
       try {
@@ -39,17 +43,25 @@ export default function HedgeHogList() {
         </Typography>
       </Box>
       {hedgehogs.length ? (
-        <Box sx={{ overflowY: "scroll", height: "100%" }}>
+        <Box sx={{ overflow: "auto", height: "100%" }}>
+          {/* <Box sx={{ overflowY: "scroll", height: "100%" }}> */}
           {hedgehogs.map((hedgehog, index: number) => (
-            <MenuItem key={`hedgehog-index-${index}`}>{hedgehog.id}</MenuItem>
+            <MenuItem
+              onClick={() => selectHedgehog(hedgehog.id)}
+              key={`hedgehog-index-${index}`}
+            >
+              {hedgehog.id} {hedgehog.name}
+            </MenuItem>
           ))}
         </Box>
       ) : (
         <Typography sx={{ padding: "1em" }}>
+          Ei siilejä tietokannassa. Lisää siili lomakkeella!
+          {/* 
           TODO: Mikäli tietokannasta löytyy siilejä, ne listautuvat tähän.
           Koodaa logiikka, jolla tämän listauksen siiliä klikkaamalla siili
           tulee valituksi, jonka jälkeen sen tiedot tulee hakea viereiseen
-          komponenttiin.
+          komponenttiin. */}
         </Typography>
       )}
     </Paper>

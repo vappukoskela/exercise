@@ -9,10 +9,8 @@ interface Props {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 function HedgehogTextField({ label, type, value, name, onChange }: Props) {
-  const darkBorder = "#00B2A0";
-  const lightBorder = "#a1e6df";
-
-  // Allow only positive integers in number field
+  
+    // Allow only positive integers in number field
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (
       type === "number" &&
@@ -28,24 +26,6 @@ function HedgehogTextField({ label, type, value, name, onChange }: Props) {
 
   return (
     <TextField
-      sx={{
-        backgroundColor: "white",
-        "& .MuiOutlinedInput-root": {
-          "&:hover fieldset": {
-            borderColor: darkBorder,
-          },
-          "&.Mui-focused fieldset": {
-            borderColor: lightBorder,
-          },
-        },
-      }}
-      InputLabelProps={{
-        sx: {
-          "&.Mui-focused": {
-            color: darkBorder,
-          },
-        },
-      }}
       onKeyDown={handleKeyDown}
       size="small"
       variant="outlined"

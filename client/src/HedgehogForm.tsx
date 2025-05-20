@@ -2,37 +2,79 @@ import HedgehogTextField from "./Components/HedgehogTextField";
 import {
   Box,
   Button,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
   Paper,
+  Radio,
+  RadioGroup,
   Typography,
 } from "@mui/material";
+
 import { useState } from "react";
 
 interface Props {
   coordinates: number[];
+  setCoordinates: (coordinates: number[] | undefined) => void;
 }
 
-export function HedgehogForm({ coordinates }: Props) {
+export function HedgehogForm({ coordinates, setCoordinates }: Props) {
   console.log(coordinates);
-  const [name, setName] = useState<string>("");
-  const [age, setAge] = useState<number>();
+  const [name, setName] = useState<string | undefined>();
+  const [age, setAge] = useState<number | undefined>();
+  const [gender, setGender] = useState<string>("");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     const { name, value } = event.target;
     if (name === "name") {
       setName(value);
     } else if (name === "age") {
       const parsedAge = parseInt(value, 10);
       parsedAge >= 0 ? setAge(parsedAge) : setAge(undefined);
+    } else if (name === "gender") {
+      setGender(value);
     }
   };
 
-  const submitForm = () => {
-    console.log(name + " " + age);
+  const submitForm = async () => {
+    if (!name || !age || !gender || coordinates.length === 0) {
+      setErrorMsg("Täytä kaikki kentät ja valitse siilin sijainti kartalta");
+      return;
+    }
+    setErrorMsg(null);
+    console.log(name + " " + age + " " + gender + " " + coordinates);
+    try {
+      const res = await fetch("/api/v1/hedgehog", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          age,
+          gender,
+          longitude: coordinates[0],
+          latitude: coordinates[1],
+        }),
+      });
+      if (!res.ok) return;
+
+      const json = await res.json();
+      // setHedgehogs(json?.hedgehogs || []);
+    } catch (err) {
+      console.error(`Error while adding a hedgehog: ${err}`);
+    } 
+    clearForm();
   };
+
   const clearForm = () => {
-    setName("");
+    setName(undefined);
     setAge(undefined);
+    setCoordinates([]);
+    setGender("");
+    setErrorMsg(null);
   };
 
   return (
@@ -79,9 +121,27 @@ export function HedgehogForm({ coordinates }: Props) {
           value={age}
           onChange={handleChange}
         />
-        {/* TODO: M/F Sukupuoli radiobutton */}
-        {/* TODO: Disabled textfield joka näyttää valitut koordinaatit */}
-        {/* TODO: Varoitus jos kaikkia bokseja ei täytetty koordinaatteja valittu */}
+        <FormControl sx={{ padding: "1em" }}>
+          <FormLabel
+            id="gender-radio-label"
+            sx={{ fontSize: "0.875rem", color: "darkslategrey" }}
+          >
+            Sukupuoli
+          </FormLabel>
+          <RadioGroup row name="gender" value={gender} onChange={handleChange}>
+            <FormControlLabel
+              value="F"
+              control={<Radio size="small" />}
+              label="Naaras"
+            />
+            <FormControlLabel
+              value="M"
+              control={<Radio size="small" />}
+              label="Uros"
+            />
+          </RadioGroup>
+        </FormControl>
+        <Typography color="error">{errorMsg}</Typography>
       </Box>
       <Box
         sx={{

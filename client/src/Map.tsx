@@ -76,6 +76,7 @@ export function Map({ children, onMapClick, features }: Props) {
     const layers = olMap.getLayers().getArray();
 
     const source = (layers[1] as VectorLayer<VectorSource>).getSource();
+    source?.clear(); // remove the previous map marker
     const olFeatures = features.map(
       (geometry) =>
         new Feature({
