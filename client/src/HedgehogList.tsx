@@ -4,27 +4,28 @@ import { useEffect, useState } from "react";
 
 interface Props {
   selectHedgehog: (id: number | null) => void;
+  hedgehogs: Hedgehog[];
 }
 
-export default function HedgeHogList({ selectHedgehog }: Props) {
-  const [hedgehogs, setHedgehogs] = useState<Hedgehog[]>([]);
+export default function HedgeHogList({ selectHedgehog, hedgehogs }: Props) {
+  // const [hedgehogs, setHedgehogs] = useState<Hedgehog[]>([]);
 
   // Fetch all hedgehogs during startup
-  useEffect(() => {
-    const getAllHedgehogs = async () => {
-      try {
-        const res = await fetch("/api/v1/hedgehog");
-        if (!res.ok) return;
+  // useEffect(() => {
+  //   const getAllHedgehogs = async () => {
+  //     try {
+  //       const res = await fetch("/api/v1/hedgehog");
+  //       if (!res.ok) return;
 
-        const json = await res.json();
-        setHedgehogs(json?.hedgehogs || []);
-      } catch (err) {
-        console.error(`Error while fetching hedgehogs: ${err}`);
-      }
-    };
+  //       const json = await res.json();
+  //       setHedgehogs(json?.hedgehogs || []);
+  //     } catch (err) {
+  //       console.error(`Error while fetching hedgehogs: ${err}`);
+  //     }
+  //   };
 
-    getAllHedgehogs();
-  }, []);
+  //   getAllHedgehogs();
+  // }, []);
 
   return (
     <Paper elevation={3} sx={{ margin: "1em", overflow: "hidden" }}>
@@ -50,7 +51,7 @@ export default function HedgeHogList({ selectHedgehog }: Props) {
               onClick={() => selectHedgehog(hedgehog.id)}
               key={`hedgehog-index-${index}`}
             >
-              {hedgehog.id} {hedgehog.name}
+              {hedgehog.name}
             </MenuItem>
           ))}
         </Box>

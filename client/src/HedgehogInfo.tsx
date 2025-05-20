@@ -3,48 +3,55 @@ import { Hedgehog } from "@shared/hedgehog";
 import { useEffect, useState } from "react";
 
 interface Props {
-  hedgehogId: number | null;
+  hedgehog: Hedgehog | null;
 }
 
-export function HedgehogInfo({ hedgehogId }: Props) {
-  const [hedgehog, setHedgehog] = useState<Hedgehog | null>(null);
-
-  console.log(hedgehogId);
-  useEffect(() => {
-    const getHedgehog = async () => {
-      try {
-        const res = await fetch(`/api/v1/hedgehog/${hedgehogId}`);
-        if (!res.ok) return;
-
-        const json = await res.json();
-        setHedgehog(json?.hedgehog || null);
-      } catch (err) {
-        console.error(`Error while fetching hedgehogs: ${err}`);
-      }
-    };
-
-    getHedgehog();
-  }, [hedgehogId]);
+export function HedgehogInfo({ hedgehog }: Props) {
 
   return (
     <Paper
       elevation={3}
       sx={{
         margin: "1em 0em 1em 0em",
-        padding: "1em",
+        overflow: "hidden",
       }}
     >
-      {hedgehog ? (
-        <Box>
-          <Typography>{hedgehog?.name}</Typography>
-          <Typography>{hedgehog?.age}</Typography>
-          <Typography>{hedgehog?.gender}</Typography>
-        </Box>
-      ) : (
-        <Typography>Valitse siili vasemmanpuoleisesta listauksesta</Typography>
-      )}
-
-      {/* <Typography>
+      <Box
+        sx={{
+          backgroundColor: "#a1e6df",
+          height: "3em",
+          display: "flex",
+          zIndex: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography sx={{ color: "darkslategrey" }}>Siilin tiedot</Typography>
+      </Box>
+      <Box
+        sx={{
+          padding: "1em",
+          flexDirection: "column",
+          display: "flex",
+          gap: 2,
+        }}
+      >
+        {hedgehog ? (
+          <Box>
+            <Typography variant="h6">Siili #{hedgehog.id}</Typography><br />
+            <Typography >Nimi: {hedgehog?.name}</Typography>
+            <Typography>Ikä: {hedgehog?.age}v</Typography>
+            <Typography>
+              Sukupuoli: {hedgehog?.gender === "M" ? "Uros" : "Naaras"}
+            </Typography>
+          </Box>
+        ) : (
+          <Typography>
+            Valitse siili vasemmanpuoleisesta listauksesta tai rekisteröi uusi
+            siili
+          </Typography>
+        )}
+        {/* <Typography>
         TODO: Esitä tässä komponentissa haluamallasi tavalla yksittäisen, tällä
         hetkellä valittuna olevan, siilin tiedot. Siili valitaan
         vasemmanpuoleisesta listauksesta. Kartalla esitetään valitun siilin
@@ -55,7 +62,8 @@ export function HedgehogInfo({ hedgehogId }: Props) {
         Komponentille välitetään React propertynä yksittäisen siilin ID, jonka
         muuttuessa ko. siilin tiedot haetaan rajapinnalta.
       </Typography> */}
-      <br />
+        <br />
+      </Box>
     </Paper>
   );
 }

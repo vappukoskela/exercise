@@ -8,17 +8,33 @@ import {
   Paper,
   Radio,
   RadioGroup,
+  styled,
   Typography,
 } from "@mui/material";
-
 import { useState } from "react";
 
 interface Props {
   coordinates: number[];
   setCoordinates: (coordinates: number[] | undefined) => void;
+  refreshHedgehogs: () => void;
 }
 
-export function HedgehogForm({ coordinates, setCoordinates }: Props) {
+const StyledFormControlLabel = styled(FormControlLabel)(() => {
+  return {
+    ".MuiTypography-root": {
+      fontSize: "0.875rem",
+      color: "darkslategrey",
+    },
+    marginLeft: 0,
+    marginRight: '1.5em',
+  }
+});
+
+export function HedgehogForm({
+  coordinates,
+  setCoordinates,
+  refreshHedgehogs,
+}: Props) {
   console.log(coordinates);
   const [name, setName] = useState<string | undefined>();
   const [age, setAge] = useState<number | undefined>();
@@ -43,7 +59,6 @@ export function HedgehogForm({ coordinates, setCoordinates }: Props) {
       return;
     }
     setErrorMsg(null);
-    console.log(name + " " + age + " " + gender + " " + coordinates);
     try {
       const res = await fetch("/api/v1/hedgehog", {
         method: "POST",
@@ -60,13 +75,11 @@ export function HedgehogForm({ coordinates, setCoordinates }: Props) {
         }),
       });
       if (!res.ok) return;
-
-      const json = await res.json();
-      // setHedgehogs(json?.hedgehogs || []);
+      refreshHedgehogs(); //re-fetch hedgehogs
+      clearForm();
     } catch (err) {
       console.error(`Error while adding a hedgehog: ${err}`);
-    } 
-    clearForm();
+    }
   };
 
   const clearForm = () => {
@@ -116,25 +129,31 @@ export function HedgehogForm({ coordinates, setCoordinates }: Props) {
         />
         <HedgehogTextField
           name="age"
-          label="Ikä"
+          label="Ikä vuosina"
           type="number"
           value={age}
           onChange={handleChange}
         />
-        <FormControl sx={{ padding: "1em" }}>
+        <FormControl sx={{  }}>
           <FormLabel
             id="gender-radio-label"
-            sx={{ fontSize: "0.875rem", color: "darkslategrey" }}
+            sx={{
+              fontSize: "0.875rem",
+              color: "darkslategrey",
+              display: "block",
+              marginLeft: "1em",
+              marginTop: "1em",
+            }}
           >
             Sukupuoli
           </FormLabel>
           <RadioGroup row name="gender" value={gender} onChange={handleChange}>
-            <FormControlLabel
+            <StyledFormControlLabel
               value="F"
               control={<Radio size="small" />}
               label="Naaras"
             />
-            <FormControlLabel
+            <StyledFormControlLabel
               value="M"
               control={<Radio size="small" />}
               label="Uros"
