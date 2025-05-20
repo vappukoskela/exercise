@@ -11,7 +11,6 @@ export const hedgehogSchema = z.object({
   age: z.number().int().positive(),
   latitude: z.number(),
   longitude: z.number()
-  // TODO: loput siilin tietomallista. Zod:lta löytyy esimerkiksi tällaisia tyyppejä: z.enum(), z.string(), z.number() jne. joita voi olla tarpeen hyödyntää
 });
 
 export type Hedgehog = z.infer<typeof hedgehogSchema>;
