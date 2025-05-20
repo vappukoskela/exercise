@@ -3,10 +3,27 @@ import { Hedgehog } from "@shared/hedgehog";
 import { useEffect, useState } from "react";
 
 interface Props {
-  hedgehog: Hedgehog | null;
+  hedgehogId: number | null;
 }
 
-export function HedgehogInfo({ hedgehog }: Props) {
+export function HedgehogInfo({ hedgehogId }: Props) {
+  const [hedgehog, setHedgehog] = useState<Hedgehog | null>(null);
+
+  useEffect(() => {
+    const getHedgehog = async () => {
+      try {
+        const res = await fetch(`/api/v1/hedgehog/${hedgehogId}`);
+        if (!res.ok) return;
+
+        const json = await res.json();
+        setHedgehog(json?.hedgehog || null);
+      } catch (err) {
+        console.error(`Error while fetching hedgehogs: ${err}`);
+      }
+    };
+
+    getHedgehog();
+  }, [hedgehogId]);
 
   return (
     <Paper

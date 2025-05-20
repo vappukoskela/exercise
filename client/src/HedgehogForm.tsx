@@ -178,21 +178,7 @@ export function HedgehogForm({
           Tallenna havainto
         </Button>
       </Box>
-      {/* <Typography>
-        TODO: Luo tähän lomake painikkeineen, jonka avulla uusia siilihavaintoja
-        saa lisättyä palveluun.
-      </Typography>
-      <br />
-      <Typography>
-        Siililtä kysyttävät tiedot: nimi, ikä, sukupuoli. Lisäksi
-        siilin havainnon yhteydessä merkitään havainnon sijainti kartalla.
-        Kartalta saadaan koordinaattipiste tälle HedgehogForm:lle klikkaamalla
-        karttaa (kts. consolin logit). Tämä koordinaattipiste tulee tallentaa
-        tietokantaan muiden tietojen oheen. PostGIS tarjoaa koordinaateille
-        sopivan tietokantatyypin koordinaattien tallennukseen. Yllä olevat
-        tiedot tulee tallentaa tietokantaan sopivalla HTTP pyynnöllä siilien
-        tietokantaan.
-      </Typography> */}
+  
     </Paper>
   );
 }

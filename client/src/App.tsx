@@ -51,7 +51,6 @@ export function App() {
       setHedgehog(selectedHedgehog)
       setCoordinates([selectedHedgehog?.longitude, selectedHedgehog?.latitude]);
     }
-    console.log(selectedHedgehog);
   };
 
   const refreshHedgehogs = () => {
@@ -102,7 +101,7 @@ export function App() {
         >
           <HedgeHogList selectHedgehog={selectHedgehog} hedgehogs={hedgehogs} />
           <Box>
-            <HedgehogInfo hedgehog={hedgehog} />
+            <HedgehogInfo hedgehogId={selectedHedgehogId} />
             <HedgehogForm
               coordinates={coordinates || []}
               setCoordinates={setCoordinates}
