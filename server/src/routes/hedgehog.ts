@@ -1,4 +1,4 @@
-import { addHedgehog, getAllHedgehogs, getHedgehog } from "@server/application/hedgehog";
+import { addHedgehog, deleteHedgehog, getAllHedgehogs, getHedgehog } from "@server/application/hedgehog";
 import { FastifyInstance, FastifyPluginOptions, FastifyReply, FastifyRequest } from "fastify";
 import { Hedgehog } from "@shared/hedgehog";
 interface GetHedgehogRequest {
@@ -7,44 +7,57 @@ interface GetHedgehogRequest {
   }
 }
 
-
-
 export function hedgehogRouter(
   fastify: FastifyInstance,
   _opts: FastifyPluginOptions,
   done: () => void
 ) {
   fastify.get("/", async function (_request, reply) {
-    const hedgehogs = await getAllHedgehogs();
-
-    return reply.code(200).send({
-      hedgehogs,
-    });
+    try {
+      const hedgehogs = await getAllHedgehogs();
+      return reply.code(200).send({
+        hedgehogs,
+      });
+    } catch (error) {
+      return reply.code(500).send({ message: "Failed to fetch all hedgehogs" });
+    }
   });
 
   fastify.get("/:id", async function (_request: FastifyRequest<GetHedgehogRequest>, reply: FastifyReply) {
-    console.log(_request.params)
-    const id = parseInt(_request.params.id, 10)
-    const hedgehog = await getHedgehog(id);
+    console.log(_request.params);
+    const id = parseInt(_request.params.id, 10);
+    try {
+      const hedgehog = await getHedgehog(id);
+      return reply.code(200).send({
+        hedgehog,
+      });
 
-    return reply.code(200).send({
-      hedgehog,
-    });
+    } catch (error) {
+      return reply.code(500).send({ message: "Failed to fetch hedgehog by id" });
+    }
   });
 
   fastify.post("/", async function (_request: FastifyRequest<{ Body: Hedgehog }>, reply) {
-    const { name, age, gender, latitude, longitude } = _request.body
-    const hedgehog = await addHedgehog(name, age, gender, latitude, longitude)
-    return reply.code(201).send({
-      hedgehog,
-    });
-  })
+    const { name, age, gender, latitude, longitude } = _request.body;
+    try {
+      const hedgehog = await addHedgehog(name, age, gender, latitude, longitude);
+      return reply.code(201).send({
+        hedgehog,
+      });
+    } catch (error) {
+      return reply.code(500).send({ message: "Failed to add hedgehog" });
+    }
 
-  // TODO: Yksittäisen siilin hakeminen tietokannasta ID:llä
-  // fastify.get(...);
+  });
 
-  // TODO: Yksittäisen siilin lisäämisen sovelluslogiikka
-  // fastify.post(...)
-
+  fastify.delete("/:id", async function (_request: FastifyRequest<GetHedgehogRequest>, reply: FastifyReply) {
+    const id = parseInt(_request.params.id, 10);
+    try {
+      await deleteHedgehog(id);
+      return reply.code(204).send();
+    } catch (error) {
+      return reply.code(500).send({ message: "Failed to delete hedgehog" });
+    }
+  });
   done();
 }

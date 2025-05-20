@@ -16,6 +16,7 @@ export async function getAllHedgehogs() {
     return hedgehogs;
   } catch (error) {
     logger.error(error);
+    throw error;
   }
 }
 
@@ -31,6 +32,7 @@ export async function getHedgehog(id: number) {
     return hedgehog;
   } catch (error) {
     logger.error(error);
+    throw error;
   }
 }
 
@@ -46,10 +48,24 @@ export async function addHedgehog(name: string, age: number, gender: string, lat
     return newHedgehog;
   } catch (error) {
     logger.error(error);
+    throw error;
   }
 }
 
+// Delete function to be able to clean up db. Not implemented front end
+export async function deleteHedgehog(id: number) {
+  try {
+    const deletedHedgehog = await getPool().maybeOne(
+      sql.type(hedgehogSchema)`DELETE FROM hedgehog WHERE id = ${id}
+            RETURNING id, name, gender, age, ST_Y(location) as latitude, ST_X(location) as longitude`
+    );
 
-// TODO: Yksittäisen siilin hakeminen tietokannasta ID:llä
-
-// TODO: Yksittäisen siilin lisäämisen sovelluslogiikka
+    // if no hedgehog was found to be deleted by id
+    if (!deletedHedgehog) {
+      return null;
+    }
+  } catch (error) {
+    logger.error(error);
+    throw error;
+  }
+}
