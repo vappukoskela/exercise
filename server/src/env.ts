@@ -12,9 +12,13 @@ function getEnv() {
   return {
     nodeEnv: process.env.NODE_ENV,
     logLevel: process.env.LOG_LEVEL,
-    serverPort: Number(process.env.SERVER_PORT),
+    serverPort: Number(process.env.PORT) || 8080,
+      // ? Number(process.env.PORT)
+      // : process.env.SERVER_PORT
+      //   ? Number(process.env.SERVER_PORT)
+      //   : 8080,
     db: {
-      host: process.env.PG_HOST,
+      host: process.env.PG_HOST ||'',
       port: Number(process.env.PG_PORT),
       database: process.env.PG_DATABASE,
       username: process.env.PG_USER,

@@ -3,12 +3,12 @@ FROM node:18-alpine AS base
 FROM base AS shared
 WORKDIR /app/shared
 COPY ./shared/package*.json .
-RUN npm install
+RUN npm ci
 
 FROM base AS server
 WORKDIR /app/server
 COPY ./server/package*.json .
-RUN npm install
+RUN npm ci
 
 FROM base AS main
 WORKDIR /app/server

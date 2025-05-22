@@ -18,14 +18,41 @@ export class SharedPool extends Pool {
   }
 }
 
-const connectionDsn =
-  stringifyDsn({
-    databaseName: env.db.database,
-    host: env.db.host,
-    port: env.db.port,
-    username: env.db.username,
-    password: env.db.password,
-  }) + `?sslmode=${env.db.sslMode}`;
+const buildConnectionDsn = () => {
+  if(env.db)
+  if (env.nodeEnv === 'development') {
+    return (
+      stringifyDsn({
+        databaseName: env.db.database,
+        host: env.db.host,
+        port: env.db.port,
+        username: env.db.username,
+        password: env.db.password,
+      }) + `?sslmode=${env.db.sslMode}`
+    );
+  } else {
+    return (
+      stringifyDsn({
+        databaseName: env.db.database,
+        username: env.db.username,
+        password: env.db.password,
+      }) +
+      `?host=${encodeURIComponent(env.db.host)}&sslmode=${env.db.sslMode}`
+    );
+  }
+}
+
+const connectionDsn = buildConnectionDsn();
+
+// const connectionDsn =
+//   (env.nodeEnv === 'development') ?
+//     stringifyDsn({
+//       databaseName: env.db.database,
+//       host: env.db.host,
+//       port: env.db.port,
+//       username: env.db.username,
+//       password: env.db.password,
+//     }) + `?sslmode=${env.db.sslMode}`;
 
 let pool: DatabasePool | null = null;
 

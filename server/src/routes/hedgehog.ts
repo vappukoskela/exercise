@@ -1,6 +1,6 @@
 import { addHedgehog, deleteHedgehog, getAllHedgehogs, getHedgehog } from "@server/application/hedgehog";
+import { Hedgehog } from "@server/hedgehog";
 import { FastifyInstance, FastifyPluginOptions, FastifyReply, FastifyRequest } from "fastify";
-import { Hedgehog } from "@shared/hedgehog";
 interface GetHedgehogRequest {
   Params: {
     id: string
@@ -61,3 +61,5 @@ export function hedgehogRouter(
   });
   done();
 }
+export { Hedgehog };
+

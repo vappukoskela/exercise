@@ -3,12 +3,17 @@ import { CommonServerOptions, defineConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 const serverOptions: CommonServerOptions = {
   host: '0.0.0.0',
   port: 8080,
-  proxy: {
-    '/api': 'http://server:3003',
-  },
+
+  ...(isDevelopment && {
+    proxy: {
+      '/api': 'http://server:3003',
+    },
+  }),
 };
 
 export default defineConfig({
@@ -18,15 +23,15 @@ export default defineConfig({
       babel: { plugins: ['@emotion/babel-plugin'] },
     }),
     tsconfigPaths(),
-    process.env.NODE_ENV === 'development' &&
-      checker({
-        typescript: {
-          buildMode: true,
-        },
-        overlay: {
-          initialIsOpen: false,
-        },
-      }),
+    isDevelopment &&
+    checker({
+      typescript: {
+        buildMode: true,
+      },
+      overlay: {
+        initialIsOpen: false,
+      },
+    }),
   ],
   build: {
     outDir: 'dist',

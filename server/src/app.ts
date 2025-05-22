@@ -1,3 +1,5 @@
+console.log('=== SERVER STARTED ===');
+
 import { env } from './env';
 import fastifySensible from '@fastify/sensible';
 import fastifyStatic from '@fastify/static';
@@ -8,6 +10,7 @@ import fastify from 'fastify';
 import { join } from 'path';
 
 async function run() {
+
   await createDatabasePool();
 
   const server = fastify({ logger });
@@ -30,7 +33,7 @@ async function run() {
   });
 
   server.register(routes, { prefix: '/api/v1' });
-
+  console.log('Starting server on port', env.serverPort)
   server.listen({ host: '0.0.0.0', port: env.serverPort }, (err) => {
     if (err) {
       logger.error(err);
