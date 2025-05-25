@@ -7,7 +7,6 @@ interface Props {
 }
 
 export default function HedgeHogList({ selectHedgehog, hedgehogs }: Props) {
-
   return (
     <Paper elevation={3} sx={{ margin: "1em", overflow: "hidden" }}>
       <Box
@@ -25,7 +24,7 @@ export default function HedgeHogList({ selectHedgehog, hedgehogs }: Props) {
         </Typography>
       </Box>
       {hedgehogs.length ? (
-        <Box sx={{ overflow: "auto", height: "100%" }}>
+        <Box sx={{ overflow: "auto", height: "100%" }} id="hedgehog-list">
           {/* <Box sx={{ overflowY: "scroll", height: "100%" }}> */}
           {hedgehogs.map((hedgehog, index: number) => (
             <MenuItem

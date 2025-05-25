@@ -99,6 +99,7 @@ export function Map({ children, onMapClick, features }: Props) {
       <div
         style={{ width: "100%", height: "100%", position: "relative" }}
         ref={mapRef}
+        id="hedgehog-map"
       >
         {children}
       </div>

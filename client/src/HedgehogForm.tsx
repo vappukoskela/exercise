@@ -174,7 +174,7 @@ export function HedgehogForm({
         <Button variant="outlined" onClick={clearForm}>
           Tyhjennä
         </Button>
-        <Button variant="contained" color="primary" onClick={submitForm}>
+        <Button variant="contained" color="primary" id="submit" onClick={submitForm}>
           Tallenna havainto
         </Button>
       </Box>

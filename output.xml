@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.11.1 on win32)" generated="20250525 11:25:24.237" rpa="false" schemaversion="3">
+<suite id="s1" name="Add Hedgehog" source="c:\Users\Vappu\Documents\test\exercise\robot\add_hedgehog.robot">
+<kw name="Open Browser" library="SeleniumLibrary" type="SETUP">
+<arg>${APP_URL}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20250525 11:25:24.854" level="INFO">Opening browser 'chrome' to base url 'http://localhost:8080'.</msg>
+<status status="PASS" starttime="20250525 11:25:24.853" endtime="20250525 11:25:26.782"/>
+</kw>
+<test id="s1-t1" name="Delete Hedgehog" line="44">
+<kw name="Go To" library="SeleniumLibrary">
+<arg>${APP_URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20250525 11:25:26.785" level="INFO">Opening url 'http://localhost:8080'</msg>
+<status status="PASS" starttime="20250525 11:25:26.784" endtime="20250525 11:25:27.092"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>id=hedgehog-list</arg>
+<arg>timeout=5s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20250525 11:25:27.092" endtime="20250525 11:25:27.343"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath=//div[@id="hedgehog-list"]//li[text()="${NAME}"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20250525 11:25:27.366" level="INFO">Element 'xpath=//div[@id="hedgehog-list"]//li[text()="Test1"]' is displayed.</msg>
+<status status="PASS" starttime="20250525 11:25:27.343" endtime="20250525 11:25:27.366"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath=//div[@id="hedgehog-list"]//li[text()="${NAME}"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20250525 11:25:27.367" level="INFO">Clicking element 'xpath=//div[@id="hedgehog-list"]//li[text()="Test1"]'.</msg>
+<status status="PASS" starttime="20250525 11:25:27.367" endtime="20250525 11:25:27.473"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${hedgehogTitle}</var>
+<arg>css:h6.MuiTypography-h6</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20250525 11:25:27.509" level="INFO">${hedgehogTitle} = Siili #16</msg>
+<status status="PASS" starttime="20250525 11:25:27.474" endtime="20250525 11:25:27.509"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${id}</var>
+<arg>re.search(r'#(\\d+)', '''${hedgehogTitle}''').group(1)</arg>
+<arg>re</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20250525 11:25:27.511" level="INFO">${id} = 16</msg>
+<status status="PASS" starttime="20250525 11:25:27.510" endtime="20250525 11:25:27.511"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>api</arg>
+<arg>${API_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20250525 11:25:27.512" level="INFO">Creating Session using : alias=api, url=http://localhost:3003/api/v1/hedgehog/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20250525 11:25:27.512" endtime="20250525 11:25:27.513"/>
+</kw>
+<kw name="DELETE On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>api</arg>
+<arg>${id}</arg>
+<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
+<msg timestamp="20250525 11:25:29.572" level="INFO">DELETE Request : url=http://localhost:3003/api/v1/hedgehog/16 
+ path_url=/api/v1/hedgehog/16 
+ headers={'User-Agent': 'python-requests/2.28.2', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20250525 11:25:29.572" level="INFO">DELETE Response : url=http://localhost:3003/api/v1/hedgehog/16 
+ status=204, reason=No Content 
+ headers={'Date': 'Sat, 24 May 2025 17:07:29 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=72'} 
+ body=None 
+ </msg>
+<msg timestamp="20250525 11:25:29.573" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20250525 11:25:27.514" endtime="20250525 11:25:29.573"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250525 11:25:29.574" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250525 11:25:29.573" endtime="20250525 11:25:29.575"/>
+</kw>
+<status status="PASS" starttime="20250525 11:25:26.783" endtime="20250525 11:25:29.576"/>
+</test>
+<kw name="Close Browser" library="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" starttime="20250525 11:25:29.578" endtime="20250525 11:25:31.792"/>
+</kw>
+<status status="PASS" starttime="20250525 11:25:24.242" endtime="20250525 11:25:31.793"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Add Hedgehog">Add Hedgehog</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
