@@ -18,19 +18,24 @@ export class SharedPool extends Pool {
   }
 }
 
-const connectionDsn =
-  stringifyDsn({
-    databaseName: env.db.database,
-    host: env.db.host,
-    port: env.db.port,
-    username: env.db.username,
-    password: env.db.password,
-  }) + `?sslmode=${env.db.sslMode}`;
+
+const buildConnectionDsn = (): string => {
+  return (
+    stringifyDsn({
+      databaseName: env.db.database,
+      host: env.db.host,
+      port: env.db.port,
+      username: env.db.username,
+      password: env.db.password,
+    }) + `?sslmode=${env.db.sslMode}`
+  );
+};
+
+const connectionDsn = buildConnectionDsn();
 
 let pool: DatabasePool | null = null;
 
 export async function createDatabasePool() {
-  // The password in DSN may include URI decoded characters
   const uriEncodedPassword = encodeURIComponent(env.db.password ?? '');
   const redactedDsn = connectionDsn.replace(uriEncodedPassword, '********');
   logger.info(`Connecting to ${redactedDsn}`);

@@ -1,6 +1,6 @@
 import { getPool } from "@server/db";
 import { logger } from "@server/logging";
-import { hedgehogSchema } from "@shared/hedgehog";
+import { hedgehogSchema } from "@server/hedgehog";
 import { sql } from "slonik";
 
 // When getting hedgehogs, note that location is stored as a ST_Point
